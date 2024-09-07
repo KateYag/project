@@ -12,16 +12,16 @@
         <div class="card" style="width: 18rem;">
             <div class="card-body">
                 <h5 class="card-title mb-3">Депозиты</h5>
-                <a href="javascript:void(0)" class="btn btn-primary" >Редактировать</a>
-                <a href="javascript:void(0)" class="btn btn-danger" id="delete-popup-open">Удалить</a>
+                <a href="javascript:void(0)" class="btn btn-primary edit-card" >Редактировать</a>
+                <a href="javascript:void(0)" class="btn btn-danger delete-popup-open">Удалить</a>
                 <div class="popup">
                     <div class="delete-popup translate-middle" id="delete-popup">
                         <div class="delete-popup-content">
                             Вы действительно хотите удалить категорию? Связанные доходы будут удалены навсегда.
                         </div>
-                        <div class="delete-popup-button">
+                        <div class="delete-popup-button button mt-3">
                             <a href="javascript:void(0)" class="btn btn-success" >Да, удалить</a>
-                            <a href="javascript:void(0)" class="btn btn-danger" >Не удалять</a>
+                            <a href="javascript:void(0)" class="btn btn-danger" id="not-delete" >Не удалять</a>
                         </div>
                     </div>
                 </div>
@@ -32,26 +32,26 @@
         <div class="card" style="width: 18rem;">
             <div class="card-body">
                 <h5 class="card-title mb-3">Зарплата</h5>
-                <a href="javascript:void(0)" class="btn btn-primary">Редактировать</a>
-                <a href="javascript:void(0)" class="btn btn-danger">Удалить</a>
+                <a href="javascript:void(0)" class="btn btn-primary edit-card">Редактировать</a>
+                <a href="javascript:void(0)" class="btn btn-danger delete-popup-open" >Удалить</a>
             </div>
         </div>
         <div class="card" style="width: 18rem;">
             <div class="card-body">
                 <h5 class="card-title mb-3">Сбережения</h5>
-                <a href="javascript:void(0)" class="btn btn-primary">Редактировать</a>
-                <a href="javascript:void(0)" class="btn btn-danger">Удалить</a>
+                <a href="javascript:void(0)" class="btn btn-primary edit-card">Редактировать</a>
+                <a href="javascript:void(0)" class="btn btn-danger delete-popup-open">Удалить</a>
             </div>
         </div>
         <div class="card" style="width: 18rem;">
             <div class="card-body">
                 <h5 class="card-title mb-3">Инвестиции</h5>
-                <a href="javascript:void(0)" class="btn btn-primary">Редактировать</a>
-                <a href="javascript:void(0)" class="btn btn-danger">Удалить</a>
+                <a href="javascript:void(0)" class="btn btn-primary edit-card">Редактировать</a>
+                <a href="javascript:void(0)" class="btn btn-danger delete-popup-open">Удалить</a>
             </div>
         </div>
         <div class="card" style="width: 18rem;">
-            <div class="card-body">
+            <div class="card-body" id="create-card">
                 <i class="fa fa-plus translate-middle"></i>
             </div>
         </div>

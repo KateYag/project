@@ -6,6 +6,10 @@ import {Expenses} from "./components/expenses";
 import {IncomeExpenses} from "./components/income-expenses";
 import {Logout} from "./components/logout";
 import {AuthUtils} from "./utils/auth-utils";
+import {CreateCardElement} from "./components/create-card-element";
+import {EditCardElement} from "./components/edit-card-element";
+import {ExpensesCreateCardElement} from "./components/expenses-create-card-element";
+import {ExpensesEditCardElement} from "./components/expenses-edit-card-element";
 
 export class Router {
     constructor() {
@@ -34,7 +38,7 @@ export class Router {
                 filePathTemplate: '/templates/income.html',
                 useLayout: '/templates/layout.html',
                 load: () => {
-                    new Income();
+                    new Income(this.openNewRoute.bind(this));
                 },
             },
             {
@@ -43,7 +47,7 @@ export class Router {
                 filePathTemplate: '/templates/expenses.html',
                 useLayout: '/templates/layout.html',
                 load: () => {
-                    new Expenses();
+                    new Expenses(this.openNewRoute.bind(this));
                 },
             },
             {
@@ -73,6 +77,42 @@ export class Router {
                 useLayout: false,
                 load: () => {
                     new SignUp(this.openNewRoute.bind(this));
+                },
+            },
+            {
+                route: '/create-card-element',
+                title: 'Создание категории доходов',
+                filePathTemplate: '/templates/create-card-element.html',
+                useLayout: '/templates/layout.html',
+                load: () => {
+                    new CreateCardElement(this.openNewRoute.bind(this));
+                },
+            },
+            {
+                route: '/edit-card-element',
+                title: 'Редактирование категории доходов',
+                filePathTemplate: '/templates//edit-card-element.html',
+                useLayout: '/templates/layout.html',
+                load: () => {
+                    new EditCardElement(this.openNewRoute.bind(this));
+                },
+            },
+            {
+                route: '/expenses-create-card-element',
+                title: 'Создание категории доходов',
+                filePathTemplate: '/templates/create-card-element.html',
+                useLayout: '/templates/layout.html',
+                load: () => {
+                    new ExpensesCreateCardElement(this.openNewRoute.bind(this));
+                },
+            },
+            {
+                route: '/expenses-edit-card-element',
+                title: 'Редактирование категории доходов',
+                filePathTemplate: '/templates//edit-card-element.html',
+                useLayout: '/templates/layout.html',
+                load: () => {
+                    new ExpensesEditCardElement(this.openNewRoute.bind(this));
                 },
             },
             {

@@ -1,6 +1,12 @@
+.container {
+  margin: 0;
+}
 .wrapper {
   display: flex;
   width: 100%;
+  .content-wrapper {
+    width: 100%;
+  }
   .sidebar {
     ul {
       li {
@@ -165,7 +171,7 @@ position: fixed;
   }
 }
 
-.income {
+.income, .expenses {
   .cards {
     display: flex;
     flex-wrap: wrap;
@@ -194,6 +200,9 @@ position: fixed;
         box-sizing: border-box;
         padding: 40px;
         border-radius: 12px;
+        .delete-popup-button {
+          text-align: center;
+        }
         //&:before {
         //  content: '';
         //  background: #000;
@@ -215,7 +224,7 @@ position: fixed;
     }
   }
 }
-.dashboard, .income, .expenses, .income-expenses {
+.dashboard, .income, .expenses, .income-expenses, .create-card-element {
   padding-top: 100px;
   padding-left: 60px;
 }
@@ -245,4 +254,15 @@ position: fixed;
     border-radius: 4px 0 0 4px;
   }
 
+}
+
+.create-card-element {
+  .input-create-card {
+    width: 397px;
+    border: 1px solid #6C757D;
+    border-radius: 4px;
+    padding: 7px 16px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+  }
 }
