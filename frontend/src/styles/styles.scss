@@ -226,11 +226,7 @@ position: fixed;
         //  opacity: 0.7;
         //  z-index: 9999;
         //}
-        .delete-popup-content {
-          font-size: 20px;
-          text-align: center;
-          color: #290661;
-        }
+
 
       }
     }
@@ -296,6 +292,12 @@ position: fixed;
 
   .delete-popup-button {
     text-align: center;
+  }
+  .delete-popup-content {
+    font-size: 20px;
+    text-align: center;
+    color: #290661;
+    font-weight: bold;
   }
 }
 

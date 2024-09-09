@@ -46,7 +46,7 @@
                     <td></td>
                     <td></td>
                     <td>
-                        <a href="javascript:void(0)">
+                        <a href="javascript:void(0)" class="delete-popup-open">
                             <span class="fa fa-trash"></span>
                         </a>
                         <a href="/edit-card-element-extended">
@@ -63,7 +63,7 @@
                     <td></td>
                     <td></td>
                     <td>
-                        <a href="javascript:void(0)">
+                        <a href="javascript:void(0)" class="delete-popup-open">
                             <span class="fa fa-trash"></span>
                         </a>
                         <a href="/edit-card-element-extended">
@@ -76,5 +76,16 @@
             </table>
         </div>
     </section>
+    <div class="popup">
+        <div class="delete-popup translate-middle" id="delete-popup">
+            <div class="delete-popup-content">
+                Вы действительно хотите удалить операцию?
+            </div>
+            <div class="delete-popup-button button mt-3">
+                <a href="javascript:void(0)" class="btn btn-success" >Да, удалить</a>
+                <a href="javascript:void(0)" class="btn btn-danger" id="not-delete" >Не удалять</a>
+            </div>
+        </div>
+    </div>
 
 </div>
