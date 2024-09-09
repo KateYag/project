@@ -41,12 +41,11 @@ module.exports = {
                  { from: "./src/images", to: "images" },
                  { from: "./node_modules/bootstrap/dist/css/bootstrap.css", to: "styles" },
                  { from: "./node_modules/bootstrap/dist/js/bootstrap.js", to: "scripts" },
-                 // { from: "./node_modules/bootstrap/dist/js/bootstrap.bundle.js", to: "scripts" },
                  { from: "./node_modules/@popperjs/core/dist/umd/popper.js", to: "scripts" },
                  { from: "./node_modules/font-awesome/fonts", to: "fonts" },
-                 // { from: "./node_modules/font-awesome/css/font-awesome.css", to: "styles" },
                  { from: "./node_modules/font-awesome/css/font-awesome.min.css", to: "styles" },
                  { from: "./node_modules/font-awesome/scss/_icons.scss", to: "styles" },
+                 { from: "./node_modules/chart.js/dist/chart.js", to: "scripts" },
 
                  // { from: "./node_modules/font-awesome/scss/font-awesome.scss", to: "styles" },
 

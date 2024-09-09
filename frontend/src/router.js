@@ -10,6 +10,8 @@ import {CreateCardElement} from "./components/create-card-element";
 import {EditCardElement} from "./components/edit-card-element";
 import {ExpensesCreateCardElement} from "./components/expenses-create-card-element";
 import {ExpensesEditCardElement} from "./components/expenses-edit-card-element";
+import {CreateCardElementExtended} from "./components/create-card-element-extended";
+import {EditCardElementExtended} from "./components/edit-card-element-extended";
 
 export class Router {
     constructor() {
@@ -17,11 +19,7 @@ export class Router {
 
         this.titlePageElement = document.getElementById('title');
         this.contentPageElement = document.getElementById('content');
-        // this.profileNameElement = document.getElementById('profile-name');
-        // this.init().then();
 
-
-        //this.initEvents();
         this.routes = [
             {
                 route: '/',
@@ -91,7 +89,7 @@ export class Router {
             {
                 route: '/edit-card-element',
                 title: 'Редактирование категории доходов',
-                filePathTemplate: '/templates//edit-card-element.html',
+                filePathTemplate: '/templates/edit-card-element.html',
                 useLayout: '/templates/layout.html',
                 load: () => {
                     new EditCardElement(this.openNewRoute.bind(this));
@@ -99,8 +97,8 @@ export class Router {
             },
             {
                 route: '/expenses-create-card-element',
-                title: 'Создание категории доходов',
-                filePathTemplate: '/templates/create-card-element.html',
+                title: 'Создание категории расходов',
+                filePathTemplate: '/templates/expenses-create-card-element.html',
                 useLayout: '/templates/layout.html',
                 load: () => {
                     new ExpensesCreateCardElement(this.openNewRoute.bind(this));
@@ -108,11 +106,29 @@ export class Router {
             },
             {
                 route: '/expenses-edit-card-element',
-                title: 'Редактирование категории доходов',
-                filePathTemplate: '/templates//edit-card-element.html',
+                title: 'Редактирование категории расходов',
+                filePathTemplate: '/templates/expenses-edit-card-element.html',
                 useLayout: '/templates/layout.html',
                 load: () => {
                     new ExpensesEditCardElement(this.openNewRoute.bind(this));
+                },
+            },
+            {
+                route: '/create-card-element-extended',
+                title: 'Создание дохода/расхода',
+                filePathTemplate: '/templates/create-card-element-extended.html',
+                useLayout: '/templates/layout.html',
+                load: () => {
+                    new CreateCardElementExtended(this.openNewRoute.bind(this));
+                },
+            },
+            {
+                route: '/edit-card-element-extended',
+                title: 'Редактирование дохода/расхода',
+                filePathTemplate: '/templates/edit-card-element-extended.html',
+                useLayout: '/templates/layout.html',
+                load: () => {
+                    new EditCardElementExtended(this.openNewRoute.bind(this));
                 },
             },
             {
@@ -128,6 +144,18 @@ export class Router {
         window.addEventListener('DOMContentLoaded', this.activateRoute.bind(this));
         window.addEventListener('popstate', this.activateRoute.bind(this));
         document.addEventListener('click', this.clickHandler.bind(this));
+        this.activateNavLinks();
+    }
+    activateNavLinks() {
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function() {
+
+                document.querySelectorAll('.nav-link').forEach(item => item.classList.remove('active'));
+
+
+                this.classList.add('active');
+            });
+        });
     }
 
     async openNewRoute(url) {
@@ -197,26 +225,21 @@ export class Router {
             const href = item.getAttribute('href');
             if ((route.route.includes(href) && href !== '/') || (route.route === '/' && href === '/')) {
                 item.classList.add('active');
+
             } else {
                 item.classList.remove('active');
             }
         });
 
+
+        document.querySelectorAll('.sidebar .nav-link.active span').forEach(span => {
+            span.style.color = 'white';
+        });
+
+
+
     }
 
-    // async init() {
-    //     const profileNameElement = document.getElementById('profile-name');
-    //     if (profileNameElement) {
-    //         profileNameElement.addEventListener('click', this.toggleMenu.bind(this));
-    //     } else {
-    //         console.error('Element #profile-name not found.');
-    //     }
-    //
-    // }
-    // toggleMenu() {
-    //     let menu = document.getElementById('dropdown-menu');
-    //     menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
-    // }
 
 
 }

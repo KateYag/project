@@ -1,7 +1,7 @@
-MAIN
-<a href="/">главная</a>
-<a href="/login">Логин</a>
-<a href="/sign-up">регистрация</a>
+<!--MAIN-->
+<!--<a href="/">главная</a>-->
+<!--<a href="/login">Логин</a>-->
+<!--<a href="/sign-up">регистрация</a>-->
 <div class="dashboard">
     <section class="content-header">
         <div class="container-fluid">
@@ -14,14 +14,35 @@ MAIN
     </section>
 
     <div class="container mt-4">
-        <div class="d-flex flex-wrap">
+        <div class="d-flex flex-wrap align-items-baseline">
             <button class="btn btn-secondary me-2 mb-2">Сегодня</button>
             <button class="btn btn-secondary me-2 mb-2">Неделя</button>
             <button class="btn btn-secondary me-2 mb-2">Месяц</button>
             <button class="btn btn-secondary me-2 mb-2">Год</button>
             <button class="btn btn-secondary me-2 mb-2">Все</button>
             <button class="btn btn-secondary me-2 mb-2">Интервал</button>
+            <div class="date-interval">
+                <b>с</b> <span class="date-one">Дата</span> <b>по</b> <span class="date-two">Дата</span>
+            </div>
         </div>
+    </div>
+    <div class="chart">
+        <div class="chart-income">
+            <h2>Доходы</h2>
+            <canvas id="myChart" width="437" height="467"></canvas>
+        </div>
+        <div class="chart-divider"></div>
+
+       <div class="chart-expenses">
+           <h2>Расходы</h2>
+           <canvas id="expensesMyChart" width="437" height="467"></canvas>
+       </div>
+
+
     </div>
 
 </div>
+
+
+
+

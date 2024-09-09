@@ -11,9 +11,7 @@ export class Expenses {
         for (let i = 0; i < element.length; i++) {
             element[i].addEventListener('click', () =>  {
                 document.getElementById('delete-popup').style.display = 'block';
-                document.getElementById('content').style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
-                document.getElementById('sidebar').style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
-                document.getElementById('content').style.zIndex = '99';
+                document.getElementById('overlay').style.display = 'block';
             });
         }
     }
@@ -22,9 +20,7 @@ export class Expenses {
         if (notDeleteElement) {
             notDeleteElement.addEventListener('click', () => {
                 document.getElementById('delete-popup').style.display = 'none';
-                document.getElementById('content').style.backgroundColor = '';
-                document.getElementById('sidebar').style.backgroundColor = '';
-                document.getElementById('content').style.zIndex = '';
+                document.getElementById('overlay').style.display = 'none';
             })
         }
     }
