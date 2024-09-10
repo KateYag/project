@@ -8,6 +8,7 @@
   z-index: 99;
   display: none;
 }
+
 .container {
   margin: 0;
 }
@@ -287,7 +288,7 @@ position: fixed;
   width: 530px;
   height: 184px;
   box-sizing: border-box;
-  padding: 40px;
+  padding: 38px;
   border-radius: 12px;
 
   .delete-popup-button {
@@ -341,19 +342,39 @@ position: fixed;
 
 .chart {
   margin-top: 140px;
-  gap: 169px;
+  //gap: 169px;
   display: flex;
   flex-wrap: wrap;
-  .chart-divider {
-    width: 1px;
-    background-color:  #d9d9d9;
-    height: 450px;
-    margin-top: 80px;
+  &.mb-8 {
+    margin-bottom: 173px;
   }
+  .myChartOne, .myChartTwo {
+    width: 100%;
+  }
+  .chart-income {
+    position: relative;
+    &::before {
+      content: '';
+      position: absolute;
+      top: 10%;
+      left: 100%;
+      width: 1px;
+      height: 90%;
+      background-color: #d9d9d9;
+    }
+  }
+
+  //.chart-divider {
+  //  width: 1px;
+  //  background-color:  #d9d9d9;
+  //  height: 450px;
+  //  margin-top: 80px;
+  //}
   h2 {
     text-align: center;
     color: #290661;
   }
+
 }
 .buttons-create {
   display: flex;
@@ -395,12 +416,23 @@ position: fixed;
     margin-bottom: 10px;
   }
 }
-a {
-  text-decoration: none;
-  color: inherit;
-  &:focus,
-  &:active {
-    outline: none; /* Убираем рамку при фокусе */
+.link {
+  a {
+    text-decoration: none;
+    color: inherit;
+    &:focus,
+    &:active {
+      outline: none;
+    }
   }
 }
+ .menu {
+   gap: 20px;
+ }
 
+.text-white {
+  color: white !important;
+}
+.text-blue {
+  color: #290661 !important;
+}

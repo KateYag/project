@@ -14,7 +14,7 @@
     </section>
 
     <div class="container mt-4">
-        <div class="d-flex flex-wrap align-items-baseline">
+        <div class="d-flex flex-wrap align-items-baseline menu">
             <button class="btn btn-secondary me-2 mb-2">Сегодня</button>
             <button class="btn btn-secondary me-2 mb-2">Неделя</button>
             <button class="btn btn-secondary me-2 mb-2">Месяц</button>
@@ -25,21 +25,22 @@
                 <b>с</b> <span class="date-one">Дата</span> <b>по</b> <span class="date-two">Дата</span>
             </div>
         </div>
-    </div>
-    <div class="chart">
-        <div class="chart-income">
-            <h2>Доходы</h2>
-            <canvas id="myChart" width="437" height="467"></canvas>
+        <div class="chart row mb-8">
+            <div class="chart-income col-6">
+                <h2>Доходы</h2>
+                <canvas id="myChart" class="myChartOne"></canvas>
+            </div>
+<!--            <div class="chart-divider"></div>-->
+
+            <div class="chart-expenses col-6">
+                <h2>Расходы</h2>
+                <canvas id="expensesMyChart" class="myChartTwo"></canvas>
+            </div>
+
+
         </div>
-        <div class="chart-divider"></div>
-
-       <div class="chart-expenses">
-           <h2>Расходы</h2>
-           <canvas id="expensesMyChart" width="437" height="467"></canvas>
-       </div>
-
-
     </div>
+
 
 </div>
 
