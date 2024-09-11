@@ -47,6 +47,9 @@ export class SignUp {
     async signUp() {
         this.commonErrorElement.style.display = 'none';
         if (this.validateForm()) {
+            const nameParts = this.nameElement.value.split(' ');
+            const lastName = nameParts[0] || '';
+            const firstName = nameParts[1] || '';
             const response = await fetch('http://localhost:3000/api/signup', {
                 method: 'POST',
                 headers: {
@@ -54,7 +57,9 @@ export class SignUp {
                     'Accept': 'application/json',
                 },
                 body: JSON.stringify({
-                    name: this.nameElement.value,
+                    //name: this.nameElement.value,
+                    name: firstName,
+                    lastName: lastName,
                     email: this.emailElement.value,
                     password: this.passwordElement.value,
 
@@ -62,23 +67,25 @@ export class SignUp {
             });
             const result = await response.json();
 
-            if (result.error || !result.tokens.accessToken || !result.tokens.refreshToken || !result.user.id || !result.user.name || !result.user.lastName) {
-                this.commonErrorElement.style.display = 'block';
-                return;
-            }
+            // if (result.error || !result.tokens.accessToken || !result.tokens.refreshToken || !result.user.id || !result.user.name || !result.user.lastName) {
+            //     this.commonErrorElement.style.display = 'block';
+            //     return;
+            // }
 
             AuthUtils.setAuthInfo( result.tokens.accessToken, result.tokens.refreshToken, {
                 id: result.user.id,
                 name: result.user.name,
                 lastName: result.user.lastName
             });
-            // localStorage.setItem('accessToken', result.tokens.accessToken);
-            // localStorage.setItem('refreshToken', result.tokens.refreshToken);
-            // localStorage.setItem('userInfo', JSON.stringify({
-            //     id: result.user.id,
-            //     name: result.user.name,
-            //     lastName: result.user.lastName
-            // }));
+             localStorage.setItem('lastName', lastName);
+             localStorage.setItem('firstName', firstName);
+            //localStorage.setItem('accessToken', result.tokens.accessToken);
+            //localStorage.setItem('refreshToken', result.tokens.refreshToken);
+            localStorage.setItem('userInfo', JSON.stringify({
+                id: result.user.id,
+                name: result.user.name,
+                lastName: result.user.lastName
+            }));
             this.openNewRoute('/');
 
         }
