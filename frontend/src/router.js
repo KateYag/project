@@ -147,9 +147,10 @@ export class Router {
         document.addEventListener('click', this.clickHandler.bind(this));
         this.activateNavLinks();
     }
+
     activateNavLinks() {
         document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', function() {
+            link.addEventListener('click', function () {
 
                 document.querySelectorAll('.nav-link').forEach(item => item.classList.remove('active'));
 
@@ -164,6 +165,7 @@ export class Router {
         history.pushState({}, '', url);
         await this.activateRoute(null, currentRoute);
     }
+
     async clickHandler(e) {
 
 
@@ -184,6 +186,7 @@ export class Router {
             await this.openNewRoute(url);
         }
     }
+
     async activateRoute() {
         const urlRoute = window.location.pathname;
         const newRoute = this.routes.find(item => item.route === urlRoute);
@@ -193,9 +196,9 @@ export class Router {
                 this.titlePageElement.innerText = newRoute.title;
             }
             if (newRoute.filePathTemplate) {
-                let contentBlock =  this.contentPageElement;
+                let contentBlock = this.contentPageElement;
                 if (newRoute.useLayout) {
-                    this.contentPageElement.innerHTML =  await fetch(newRoute.useLayout).then(response => response.text());
+                    this.contentPageElement.innerHTML = await fetch(newRoute.useLayout).then(response => response.text());
                     contentBlock = document.getElementById('content-layout');
 
                     this.profileNameElement = document.getElementById('profile-name');
@@ -211,7 +214,7 @@ export class Router {
 
                     //contentLayoutPageElement.innerHTML = await fetch(newRoute.filePathTemplate).then(response => response.text());
                 }
-                contentBlock.innerHTML =  await fetch(newRoute.filePathTemplate).then(response => response.text());
+                contentBlock.innerHTML = await fetch(newRoute.filePathTemplate).then(response => response.text());
             }
 
             if (newRoute.load && typeof newRoute.load === 'function') {
@@ -239,36 +242,39 @@ export class Router {
         });
 
 
-
     }
 
     activateAccordion() {
 
+        // const currentPath = window.location.pathname;
+        const accordionCollapse = document.getElementById('panelsStayOpen-collapseOne');
+        const accordionButton = document.querySelector('[data-bs-target="#panelsStayOpen-collapseOne"]');
+        const categoriesTextElement = document.querySelector('#panelsStayOpen-headingOne span');
+
+        if (accordionCollapse && accordionButton && categoriesTextElement) {
             const currentPath = window.location.pathname;
-            const accordionCollapse = document.getElementById('panelsStayOpen-collapseOne');
-            const accordionButton = document.querySelector('[data-bs-target="#panelsStayOpen-collapseOne"]');
-            const categoriesTextElement = document.querySelector('#panelsStayOpen-headingOne span');
-            if (accordionCollapse && accordionButton && categoriesTextElement) {
-            if (currentPath === '/income' || currentPath === '/expenses') {
-                accordionCollapse.classList.add('show');
+            const shouldAccordionBeOpen = (currentPath === '/income' || currentPath === '/expenses');
+
+            if (shouldAccordionBeOpen) {
+                if (!accordionCollapse.classList.contains('show')) {
+                    accordionCollapse.classList.add('show');
+                }
                 accordionButton.classList.remove('collapsed');
                 accordionButton.setAttribute('aria-expanded', 'true');
                 categoriesTextElement.classList.add('text-white');
 
 
             } else {
-                accordionCollapse.classList.remove('show');
+                if (accordionCollapse.classList.contains('show')) {
+                    accordionCollapse.classList.remove('show');
+                }
+
                 accordionButton.classList.add('collapsed');
                 accordionButton.setAttribute('aria-expanded', 'false');
                 categoriesTextElement.classList.remove('text-white');
             }
-            }
 
-
-
-
-
-        accordionButton.addEventListener('click', function() {
+        accordionButton.addEventListener('click', function () {
             const isCollapsed = accordionButton.classList.contains('collapsed');
 
 
@@ -291,8 +297,10 @@ export class Router {
             }
         });
 
+    } else {
+            return;
+        }
     }
-
 
 
 }

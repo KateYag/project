@@ -15,6 +15,7 @@
 .wrapper {
   display: flex;
   width: 100%;
+  min-height: 100vh;
   .content-wrapper {
     width: 100%;
   }
@@ -28,6 +29,11 @@
 
 
   .sidebar {
+    border-right: 1px solid #ccc;
+    .logo-img {
+      width: 98px;
+      height: 40px;
+    }
     ul {
       li {
 
@@ -43,6 +49,9 @@
           .accordion-collapse {
             border: 1px solid #0D6EFD;
           }
+        }
+        .nav-link {
+          gap: 10px;
         }
         .nav-link, .accordion-button {
           width: 100%;
@@ -153,6 +162,10 @@ position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  .logo-big-img {
+    width: 98px;
+    height: 40px;
+  }
 
   .login-entry {
     font-size: 40px;
@@ -436,3 +449,5 @@ position: fixed;
 .text-blue {
   color: #290661 !important;
 }
+
+
