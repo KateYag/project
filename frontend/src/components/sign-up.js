@@ -11,6 +11,7 @@ export class SignUp {
         this.nameElement = document.getElementById('name');
         this.passwordRepeatElement = document.getElementById('password-repeat');
         this.commonErrorElement = document.getElementById('common-error');
+        this.commonErrorEmailElement = document.getElementById('common-error-email');
         document.getElementById('process-button').addEventListener('click', this.signUp.bind(this))
     }
     validateForm() {
@@ -62,31 +63,58 @@ export class SignUp {
                     lastName: lastName,
                     email: this.emailElement.value,
                     password: this.passwordElement.value,
+                    passwordRepeat: this.passwordRepeatElement.value,
 
                 })
             });
             const result = await response.json();
 
-            // if (result.error || !result.tokens.accessToken || !result.tokens.refreshToken || !result.user.id || !result.user.name || !result.user.lastName) {
-            //     this.commonErrorElement.style.display = 'block';
-            //     return;
+            // if (result) {
+            //     if (result.error || result.user.id || result.user.name || result.user.lastName || result.user.email) {
+            //         this.commonErrorElement.style.display = 'block';
+            //         return;
+            //     }
+            //     else {
+            //         this.openNewRoute('/login');
+            //     }
             // }
+            if (response.ok) {
+                if (result.success) {
+                    this.openNewRoute('/login');
+                } else {
+                    this.commonErrorElement.style.display = 'block';
+                }
+            } else {
+                if (result.message) {
+                    if (result.message.includes('email')) {
+                        this.commonErrorEmailElement.style.display = 'block';
 
-            AuthUtils.setAuthInfo( result.tokens.accessToken, result.tokens.refreshToken, {
-                id: result.user.id,
-                name: result.user.name,
-                lastName: result.user.lastName
-            });
-             localStorage.setItem('lastName', lastName);
-             localStorage.setItem('firstName', firstName);
-            //localStorage.setItem('accessToken', result.tokens.accessToken);
-            //localStorage.setItem('refreshToken', result.tokens.refreshToken);
-            localStorage.setItem('userInfo', JSON.stringify({
-                id: result.user.id,
-                name: result.user.name,
-                lastName: result.user.lastName
-            }));
-            this.openNewRoute('/');
+                    } else {
+                        this.commonErrorElement.style.display = 'block';
+                        this.commonErrorElement.textContent = result.message;
+                    }
+                } else {
+                    this.commonErrorElement.style.display = 'block';
+                    this.commonErrorElement.textContent = 'Произошла ошибка при регистрации.';
+                }
+            }
+
+
+            // AuthUtils.setAuthInfo( result.tokens.accessToken, result.tokens.refreshToken, {
+            //     id: result.user.id,
+            //     name: result.user.name,
+            //     lastName: result.user.lastName
+            // });
+            //  localStorage.setItem('lastName', lastName);
+            //  localStorage.setItem('firstName', firstName);
+            // //localStorage.setItem('accessToken', result.tokens.accessToken);
+            // //localStorage.setItem('refreshToken', result.tokens.refreshToken);
+            // localStorage.setItem('userInfo', JSON.stringify({
+            //     id: result.user.id,
+            //     name: result.user.name,
+            //     lastName: result.user.lastName
+            // }));
+            // this.openNewRoute('/');
 
         }
 

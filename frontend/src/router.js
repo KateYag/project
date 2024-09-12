@@ -21,6 +21,8 @@ export class Router {
         this.titlePageElement = document.getElementById('title');
         this.contentPageElement = document.getElementById('content');
 
+        this.isLayoutLoaded = false;
+
         this.routes = [
             {
                 route: '/',
@@ -28,7 +30,11 @@ export class Router {
                 filePathTemplate: '/templates/dashboard.html',
                 useLayout: '/templates/layout.html',
                 load: () => {
-                    new Dashboard();
+                    if (this.isAuthenticated()) {
+                        new Dashboard();
+                    } else {
+                        this.redirectToLogin();
+                    }
                 },
             },
             {
@@ -187,6 +193,20 @@ export class Router {
         }
     }
 
+
+
+
+    isAuthenticated() {
+        const userInfo = AuthUtils.getAuthInfo(AuthUtils.userInfoTokenKey);
+        return userInfo !== null;
+    }
+
+
+    redirectToLogin() {
+        this.openNewRoute('/login');
+    }
+
+
     async activateRoute() {
         const urlRoute = window.location.pathname;
         const newRoute = this.routes.find(item => item.route === urlRoute);
@@ -195,11 +215,14 @@ export class Router {
             if (newRoute.title) {
                 this.titlePageElement.innerText = newRoute.title;
             }
-            if (newRoute.filePathTemplate) {
+           // if (newRoute.filePathTemplate) {
                 let contentBlock = this.contentPageElement;
-                if (newRoute.useLayout) {
+                const sidebar = document.getElementById('sidebar');
+                if (newRoute.useLayout && !sidebar) {
                     this.contentPageElement.innerHTML = await fetch(newRoute.useLayout).then(response => response.text());
                     contentBlock = document.getElementById('content-layout');
+                    this.activateMenuItem(newRoute);
+                    this.activateAccordion();
 
                     this.profileNameElement = document.getElementById('profile-name');
                     let userInfo = AuthUtils.getAuthInfo(AuthUtils.userInfoTokenKey);
@@ -209,39 +232,63 @@ export class Router {
                             this.profileNameElement.innerText = userInfo.name + ' ' + userInfo.lastName;
                         }
                     }
+                    //this.activateNavLinks();
 
-                    this.activateMenuItem(newRoute);
+
 
                     //contentLayoutPageElement.innerHTML = await fetch(newRoute.filePathTemplate).then(response => response.text());
+                } else if (sidebar) {
+                    sidebar.style.display = 'block';
+                    contentBlock = document.getElementById('content-layout');
                 }
                 contentBlock.innerHTML = await fetch(newRoute.filePathTemplate).then(response => response.text());
-            }
+            this.activateMenuItem(newRoute);
+            this.activateAccordion();
+                // }
 
             if (newRoute.load && typeof newRoute.load === 'function') {
                 newRoute.load();
             }
-            this.activateAccordion();
+           // this.activateAccordion();
+
 
         }
     }
 
+    // activateMenuItem(route) {
+    //     document.querySelectorAll('.sidebar .nav-link').forEach(item => {
+    //
+    //         const href = item.getAttribute('href');
+    //         if ((route.route.includes(href) && href !== '/') || (route.route === '/' && href === '/')) {
+    //             item.classList.add('active');
+    //
+    //         } else {
+    //             item.classList.remove('active');
+    //         }
+    //     });
+    //
+    //
+    //     document.querySelectorAll('.sidebar .nav-link.active span').forEach(span => {
+    //         span.style.color = 'white';
+    //     });
+    //
+    //
+    // }
     activateMenuItem(route) {
+        // Сначала сбрасываем все активные стили
+        document.querySelectorAll('.sidebar .nav-link').forEach(item => {
+            item.classList.remove('active');
+            item.querySelector('span').style.color = ''; // Сброс цвета текста
+        });
+
+        // Устанавливаем активные стили для текущего маршрута
         document.querySelectorAll('.sidebar .nav-link').forEach(item => {
             const href = item.getAttribute('href');
             if ((route.route.includes(href) && href !== '/') || (route.route === '/' && href === '/')) {
                 item.classList.add('active');
-
-            } else {
-                item.classList.remove('active');
+                item.querySelector('span').style.color = 'white'; // Установка цвета текста для активного элемента
             }
         });
-
-
-        document.querySelectorAll('.sidebar .nav-link.active span').forEach(span => {
-            span.style.color = 'white';
-        });
-
-
     }
 
     activateAccordion() {
@@ -274,7 +321,7 @@ export class Router {
                 categoriesTextElement.classList.remove('text-white');
             }
 
-        accordionButton.addEventListener('click', function () {
+            accordionButton.addEventListener('click', function () {
             const isCollapsed = accordionButton.classList.contains('collapsed');
 
 
@@ -285,7 +332,7 @@ export class Router {
                 categoriesTextElement.classList.remove('text-white');
             }
 
-            if (!isCollapsed) {
+            //if (!isCollapsed) {
                 document.querySelectorAll('.sidebar .nav-link').forEach(item => {
                     const href = item.getAttribute('href');
                     if (href === '/' || href === '/income-expenses') {
@@ -294,7 +341,7 @@ export class Router {
 
                     }
                 });
-            }
+           // }
         });
 
     } else {
