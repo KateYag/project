@@ -79,7 +79,7 @@ export class SignUp {
             //     }
             // }
             if (response.ok) {
-                if (result.success) {
+                if (result.user) {
                     this.openNewRoute('/login');
                 } else {
                     this.commonErrorElement.style.display = 'block';

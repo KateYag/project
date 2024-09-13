@@ -12,6 +12,8 @@ import {ExpensesCreateCardElement} from "./components/expenses-create-card-eleme
 import {ExpensesEditCardElement} from "./components/expenses-edit-card-element";
 import {CreateCardElementExtended} from "./components/create-card-element-extended";
 import {EditCardElementExtended} from "./components/edit-card-element-extended";
+import {activateMenuItem, activateNavLinks} from "./utils/menu-utils";
+import {activateAccordion} from "./utils/accirdion-utils";
 
 export class Router {
     constructor() {
@@ -21,7 +23,6 @@ export class Router {
         this.titlePageElement = document.getElementById('title');
         this.contentPageElement = document.getElementById('content');
 
-        this.isLayoutLoaded = false;
 
         this.routes = [
             {
@@ -151,20 +152,9 @@ export class Router {
         window.addEventListener('DOMContentLoaded', this.activateRoute.bind(this));
         window.addEventListener('popstate', this.activateRoute.bind(this));
         document.addEventListener('click', this.clickHandler.bind(this));
-        this.activateNavLinks();
+        activateNavLinks();
     }
 
-    activateNavLinks() {
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', function () {
-
-                document.querySelectorAll('.nav-link').forEach(item => item.classList.remove('active'));
-
-
-                this.classList.add('active');
-            });
-        });
-    }
 
     async openNewRoute(url) {
         const currentRoute = window.location.pathname;
@@ -215,14 +205,19 @@ export class Router {
             if (newRoute.title) {
                 this.titlePageElement.innerText = newRoute.title;
             }
-           // if (newRoute.filePathTemplate) {
+
                 let contentBlock = this.contentPageElement;
                 const sidebar = document.getElementById('sidebar');
-                if (newRoute.useLayout && !sidebar) {
+
+            if (newRoute.route === '/login' || newRoute.route === '/sign-up') {
+                if (sidebar) {
+                    sidebar.style.display = 'none';
+                }
+            } else if (newRoute.useLayout && !sidebar) {
                     this.contentPageElement.innerHTML = await fetch(newRoute.useLayout).then(response => response.text());
                     contentBlock = document.getElementById('content-layout');
-                    this.activateMenuItem(newRoute);
-                    this.activateAccordion();
+                    activateMenuItem(newRoute);
+                    activateAccordion();
 
                     this.profileNameElement = document.getElementById('profile-name');
                     let userInfo = AuthUtils.getAuthInfo(AuthUtils.userInfoTokenKey);
@@ -232,120 +227,22 @@ export class Router {
                             this.profileNameElement.innerText = userInfo.name + ' ' + userInfo.lastName;
                         }
                     }
-                    //this.activateNavLinks();
 
-
-
-                    //contentLayoutPageElement.innerHTML = await fetch(newRoute.filePathTemplate).then(response => response.text());
                 } else if (sidebar) {
                     sidebar.style.display = 'block';
                     contentBlock = document.getElementById('content-layout');
                 }
                 contentBlock.innerHTML = await fetch(newRoute.filePathTemplate).then(response => response.text());
-            this.activateMenuItem(newRoute);
-            this.activateAccordion();
+            activateMenuItem(newRoute);
+            activateAccordion();
                 // }
 
             if (newRoute.load && typeof newRoute.load === 'function') {
                 newRoute.load();
             }
-           // this.activateAccordion();
 
 
-        }
-    }
 
-    // activateMenuItem(route) {
-    //     document.querySelectorAll('.sidebar .nav-link').forEach(item => {
-    //
-    //         const href = item.getAttribute('href');
-    //         if ((route.route.includes(href) && href !== '/') || (route.route === '/' && href === '/')) {
-    //             item.classList.add('active');
-    //
-    //         } else {
-    //             item.classList.remove('active');
-    //         }
-    //     });
-    //
-    //
-    //     document.querySelectorAll('.sidebar .nav-link.active span').forEach(span => {
-    //         span.style.color = 'white';
-    //     });
-    //
-    //
-    // }
-    activateMenuItem(route) {
-        // Сначала сбрасываем все активные стили
-        document.querySelectorAll('.sidebar .nav-link').forEach(item => {
-            item.classList.remove('active');
-            item.querySelector('span').style.color = ''; // Сброс цвета текста
-        });
-
-        // Устанавливаем активные стили для текущего маршрута
-        document.querySelectorAll('.sidebar .nav-link').forEach(item => {
-            const href = item.getAttribute('href');
-            if ((route.route.includes(href) && href !== '/') || (route.route === '/' && href === '/')) {
-                item.classList.add('active');
-                item.querySelector('span').style.color = 'white'; // Установка цвета текста для активного элемента
-            }
-        });
-    }
-
-    activateAccordion() {
-
-        // const currentPath = window.location.pathname;
-        const accordionCollapse = document.getElementById('panelsStayOpen-collapseOne');
-        const accordionButton = document.querySelector('[data-bs-target="#panelsStayOpen-collapseOne"]');
-        const categoriesTextElement = document.querySelector('#panelsStayOpen-headingOne span');
-
-        if (accordionCollapse && accordionButton && categoriesTextElement) {
-            const currentPath = window.location.pathname;
-            const shouldAccordionBeOpen = (currentPath === '/income' || currentPath === '/expenses');
-
-            if (shouldAccordionBeOpen) {
-                if (!accordionCollapse.classList.contains('show')) {
-                    accordionCollapse.classList.add('show');
-                }
-                accordionButton.classList.remove('collapsed');
-                accordionButton.setAttribute('aria-expanded', 'true');
-                categoriesTextElement.classList.add('text-white');
-
-
-            } else {
-                if (accordionCollapse.classList.contains('show')) {
-                    accordionCollapse.classList.remove('show');
-                }
-
-                accordionButton.classList.add('collapsed');
-                accordionButton.setAttribute('aria-expanded', 'false');
-                categoriesTextElement.classList.remove('text-white');
-            }
-
-            accordionButton.addEventListener('click', function () {
-            const isCollapsed = accordionButton.classList.contains('collapsed');
-
-
-            if (!isCollapsed) {
-                categoriesTextElement.classList.add('text-white');
-            } else {
-
-                categoriesTextElement.classList.remove('text-white');
-            }
-
-            //if (!isCollapsed) {
-                document.querySelectorAll('.sidebar .nav-link').forEach(item => {
-                    const href = item.getAttribute('href');
-                    if (href === '/' || href === '/income-expenses') {
-                        item.classList.remove('active');
-                        item.querySelector('span').style.color = '';
-
-                    }
-                });
-           // }
-        });
-
-    } else {
-            return;
         }
     }
 
