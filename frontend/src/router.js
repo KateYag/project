@@ -44,7 +44,11 @@ export class Router {
                 filePathTemplate: '/templates/income.html',
                 useLayout: '/templates/layout.html',
                 load: () => {
-                    new Income(this.openNewRoute.bind(this));
+                    if (this.isAuthenticated()) {
+                        new Income(this.openNewRoute.bind(this));
+                    } else {
+                        this.redirectToLogin();
+                    }
                 },
             },
             {
@@ -53,7 +57,11 @@ export class Router {
                 filePathTemplate: '/templates/expenses.html',
                 useLayout: '/templates/layout.html',
                 load: () => {
-                    new Expenses(this.openNewRoute.bind(this));
+                    if (this.isAuthenticated()) {
+                        new Expenses(this.openNewRoute.bind(this));
+                    } else {
+                        this.redirectToLogin();
+                    }
                 },
             },
             {
@@ -62,7 +70,11 @@ export class Router {
                 filePathTemplate: '/templates/income-expenses.html',
                 useLayout: '/templates/layout.html',
                 load: () => {
+                    if (this.isAuthenticated()) {
                     new IncomeExpenses();
+                    } else {
+                        this.redirectToLogin();
+                    }
                 },
             },
             {
@@ -91,7 +103,11 @@ export class Router {
                 filePathTemplate: '/templates/create-card-element.html',
                 useLayout: '/templates/layout.html',
                 load: () => {
+                    if (this.isAuthenticated()) {
                     new CreateCardElement(this.openNewRoute.bind(this));
+                    } else {
+                        this.redirectToLogin();
+                    }
                 },
             },
             {
@@ -100,7 +116,11 @@ export class Router {
                 filePathTemplate: '/templates/edit-card-element.html',
                 useLayout: '/templates/layout.html',
                 load: () => {
+                    if (this.isAuthenticated()) {
                     new EditCardElement(this.openNewRoute.bind(this));
+                    } else {
+                        this.redirectToLogin();
+                    }
                 },
             },
             {
@@ -109,7 +129,11 @@ export class Router {
                 filePathTemplate: '/templates/expenses-create-card-element.html',
                 useLayout: '/templates/layout.html',
                 load: () => {
+                    if (this.isAuthenticated()) {
                     new ExpensesCreateCardElement(this.openNewRoute.bind(this));
+                    } else {
+                        this.redirectToLogin();
+                    }
                 },
             },
             {
@@ -118,7 +142,11 @@ export class Router {
                 filePathTemplate: '/templates/expenses-edit-card-element.html',
                 useLayout: '/templates/layout.html',
                 load: () => {
+                    if (this.isAuthenticated()) {
                     new ExpensesEditCardElement(this.openNewRoute.bind(this));
+                    } else {
+                        this.redirectToLogin();
+                    }
                 },
             },
             {
@@ -127,7 +155,11 @@ export class Router {
                 filePathTemplate: '/templates/create-card-element-extended.html',
                 useLayout: '/templates/layout.html',
                 load: () => {
+                    if (this.isAuthenticated()) {
                     new CreateCardElementExtended(this.openNewRoute.bind(this));
+                    } else {
+                        this.redirectToLogin();
+                    }
                 },
             },
             {
@@ -136,7 +168,11 @@ export class Router {
                 filePathTemplate: '/templates/edit-card-element-extended.html',
                 useLayout: '/templates/layout.html',
                 load: () => {
+                    if (this.isAuthenticated()) {
                     new EditCardElementExtended(this.openNewRoute.bind(this));
+                    } else {
+                        this.redirectToLogin();
+                    }
                 },
             },
             {
