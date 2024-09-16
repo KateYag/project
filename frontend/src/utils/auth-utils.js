@@ -8,7 +8,13 @@ export class AuthUtils {
       localStorage.setItem(this.refreshTokenKey, refreshToken);
       localStorage.setItem(this.userInfoTokenKey, JSON.stringify(userInfo));
    }
+   static getAccessToken() {
+      return localStorage.getItem(this.accessTokenKey);
+   }
 
+   static getRefreshToken() {
+      return localStorage.getItem(this.refreshTokenKey);
+   }
    static removeAuthInfo() {
 
       localStorage.removeItem(this.accessTokenKey);

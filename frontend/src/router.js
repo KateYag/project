@@ -14,6 +14,7 @@ import {CreateCardElementExtended} from "./components/create-card-element-extend
 import {EditCardElementExtended} from "./components/edit-card-element-extended";
 import {activateMenuItem, activateNavLinks} from "./utils/menu-utils";
 import {activateAccordion} from "./utils/accirdion-utils";
+import {updateSidebarBalance} from "./components/layout";
 
 export class Router {
     constructor() {
@@ -33,6 +34,7 @@ export class Router {
                 load: () => {
                     if (this.isAuthenticated()) {
                         new Dashboard();
+                        updateSidebarBalance();
                     } else {
                         this.redirectToLogin();
                     }
