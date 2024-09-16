@@ -1,5 +1,10 @@
 export class CreateCardElement {
-    constructor() {
+    constructor(openNewRoute) {
+        this.openNewRoute = openNewRoute;
 
     }
+
+
+
+
 }

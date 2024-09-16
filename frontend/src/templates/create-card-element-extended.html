@@ -7,10 +7,16 @@
                 </div>
             </div>
             <div class="new-card mt-4">
-                <input type="text" placeholder="Тип..." class="input-create-card-new">
-                <input type="text" placeholder="Категория..." class="input-create-card-new">
-                <input type="text" placeholder="Сумма в $..." class="input-create-card-new">
-                <input type="text" placeholder="Дата..." class="input-create-card-new">
+                <select class="input-create-card-new" id="type-select">
+                    <option value="">Тип...</option>
+                    <option value="income">Доход</option>
+                    <option value="expense">Расход</option>
+                </select>
+                <select class="input-create-card-new" id="category-select">
+                    <option value="">Категория...</option>
+                </select>
+                <input type="number" placeholder="Сумма в $..." class="input-create-card-new">
+                <input type="date" placeholder="Дата..." class="input-create-card-new">
                 <input type="text" placeholder="Комментарий..." class="input-create-card-new">
                 <div class="create-button mt-2">
                     <a href="javascript:void(0)" class="btn btn-success button" >Создать</a>

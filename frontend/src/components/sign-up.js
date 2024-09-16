@@ -69,15 +69,6 @@ export class SignUp {
             });
             const result = await response.json();
 
-            // if (result) {
-            //     if (result.error || result.user.id || result.user.name || result.user.lastName || result.user.email) {
-            //         this.commonErrorElement.style.display = 'block';
-            //         return;
-            //     }
-            //     else {
-            //         this.openNewRoute('/login');
-            //     }
-            // }
             if (response.ok) {
                 if (result.user) {
                     this.openNewRoute('/login');
@@ -98,23 +89,6 @@ export class SignUp {
                     this.commonErrorElement.textContent = 'Произошла ошибка при регистрации.';
                 }
             }
-
-
-            // AuthUtils.setAuthInfo( result.tokens.accessToken, result.tokens.refreshToken, {
-            //     id: result.user.id,
-            //     name: result.user.name,
-            //     lastName: result.user.lastName
-            // });
-            //  localStorage.setItem('lastName', lastName);
-            //  localStorage.setItem('firstName', firstName);
-            // //localStorage.setItem('accessToken', result.tokens.accessToken);
-            // //localStorage.setItem('refreshToken', result.tokens.refreshToken);
-            // localStorage.setItem('userInfo', JSON.stringify({
-            //     id: result.user.id,
-            //     name: result.user.name,
-            //     lastName: result.user.lastName
-            // }));
-            // this.openNewRoute('/');
 
         }
 

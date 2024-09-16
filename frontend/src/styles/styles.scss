@@ -245,7 +245,7 @@ position: fixed;
       }
     }
   }
-.dashboard, .income, .expenses, .income-expenses, .create-card-element, .edit-card-element, .expenses-create-card-element, expenses-edit-card-element, .create-card-element-extended {
+.dashboard, .income, .expenses, .income-expenses, .create-card-element, .edit-card-element, .expenses-create-card-element, .expenses-edit-card-element, .create-card-element-extended {
   padding-top: 100px;
   padding-left: 60px;
 }
@@ -277,7 +277,7 @@ position: fixed;
 
 }
 
-.create-card-element, .expenses-create-card-element, .create-card-element-extended {
+.create-card-element, .expenses-create-card-element, .create-card-element-extended, .edit-card-element, .expenses-edit-card-element {
   .input-create-card {
     width: 397px;
     border: 1px solid #6C757D;

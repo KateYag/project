@@ -33,7 +33,7 @@ export class Router {
                 useLayout: '/templates/layout.html',
                 load: () => {
                     if (this.isAuthenticated()) {
-                        new Dashboard();
+                        new Dashboard(this.openNewRoute.bind(this));
                         updateSidebarBalance();
                     } else {
                         this.redirectToLogin();
@@ -48,6 +48,7 @@ export class Router {
                 load: () => {
                     if (this.isAuthenticated()) {
                         new Income(this.openNewRoute.bind(this));
+                        updateSidebarBalance();
                     } else {
                         this.redirectToLogin();
                     }
@@ -61,6 +62,7 @@ export class Router {
                 load: () => {
                     if (this.isAuthenticated()) {
                         new Expenses(this.openNewRoute.bind(this));
+                        updateSidebarBalance();
                     } else {
                         this.redirectToLogin();
                     }
@@ -74,6 +76,7 @@ export class Router {
                 load: () => {
                     if (this.isAuthenticated()) {
                     new IncomeExpenses();
+                        updateSidebarBalance();
                     } else {
                         this.redirectToLogin();
                     }
@@ -107,6 +110,7 @@ export class Router {
                 load: () => {
                     if (this.isAuthenticated()) {
                     new CreateCardElement(this.openNewRoute.bind(this));
+                        updateSidebarBalance();
                     } else {
                         this.redirectToLogin();
                     }
@@ -120,6 +124,7 @@ export class Router {
                 load: () => {
                     if (this.isAuthenticated()) {
                     new EditCardElement(this.openNewRoute.bind(this));
+                        updateSidebarBalance();
                     } else {
                         this.redirectToLogin();
                     }
@@ -133,6 +138,7 @@ export class Router {
                 load: () => {
                     if (this.isAuthenticated()) {
                     new ExpensesCreateCardElement(this.openNewRoute.bind(this));
+                        updateSidebarBalance();
                     } else {
                         this.redirectToLogin();
                     }
@@ -146,6 +152,7 @@ export class Router {
                 load: () => {
                     if (this.isAuthenticated()) {
                     new ExpensesEditCardElement(this.openNewRoute.bind(this));
+                        updateSidebarBalance();
                     } else {
                         this.redirectToLogin();
                     }
@@ -159,6 +166,7 @@ export class Router {
                 load: () => {
                     if (this.isAuthenticated()) {
                     new CreateCardElementExtended(this.openNewRoute.bind(this));
+                        updateSidebarBalance();
                     } else {
                         this.redirectToLogin();
                     }
@@ -172,6 +180,7 @@ export class Router {
                 load: () => {
                     if (this.isAuthenticated()) {
                     new EditCardElementExtended(this.openNewRoute.bind(this));
+                        updateSidebarBalance();
                     } else {
                         this.redirectToLogin();
                     }
