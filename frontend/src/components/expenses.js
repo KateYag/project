@@ -8,6 +8,7 @@ export class Expenses {
         // this.createElement();
         // this.editElement();
         this.notDeleteElement();
+        this.deleteElement();
     }
 
     async getExpenses() {
@@ -23,17 +24,19 @@ export class Expenses {
     }
 
     showCards(result) {
-        console.log(result)
+        console.log(result);
         const cardsContainer = document.querySelector('.cards');
 
         result.forEach((category) => {
             const cardElement = document.createElement('div');
             cardElement.classList.add('card');
+            cardElement.setAttribute('id', `card-${category.id}`);
+            cardElement.setAttribute('data-id', category.id);
             cardElement.innerHTML = `
             <div class="card-body">
                 <h5 class="card-title mb-3">${category.title}</h5>
-                <a href="javascript:void(0)" class="btn btn-primary edit-card">Редактировать</a>
-                <a href="javascript:void(0)" class="btn btn-danger delete-popup-open">Удалить</a>
+                <a href="javascript:void(0)" class="btn btn-primary edit-card" data-id="${category.id}">Редактировать</a>
+                <a href="javascript:void(0)" class="btn btn-danger delete-popup-open" data-id="${category.id}">Удалить</a>
             </div>
         `;
 
@@ -56,9 +59,13 @@ export class Expenses {
     popupDelete() {
         const element = document.getElementsByClassName('delete-popup-open');
         for (let i = 0; i < element.length; i++) {
-            element[i].addEventListener('click', () =>  {
+            element[i].addEventListener('click', (event) =>  {
+                const id = event.target.getAttribute('data-id');
                 document.getElementById('delete-popup').style.display = 'block';
                 document.getElementById('overlay').style.display = 'block';
+
+                const deleteButton = document.getElementById('delete-card');
+                deleteButton.setAttribute('data-id', id);
             });
         }
     }
@@ -80,13 +87,41 @@ export class Expenses {
             })
         }
     }
+    deleteElement() {
+        const deleteButton  = document.getElementById('delete-card');
+        if (deleteButton) {
+            deleteButton.addEventListener('click', async () => {
+                const id = deleteButton.getAttribute('data-id');
+                if (!id) {
+                    alert('Не удалось получить идентификатор карточки.');
+                    return false;
+                }
+                const result = await HttpUtils.request(`/categories/expense/${id}`, 'DELETE', true);
+                if (result.error || !result.response || (result.response && result.response.error)) {
+                    alert('Ошибка при удалении карточки.');
+                    return false;
+                }
+                const card = document.getElementById(`card-${id}`);
+                if (card) {
+                    card.remove();
+                }
+                document.getElementById('delete-popup').style.display = 'none';
+                document.getElementById('overlay').style.display = 'none';
+
+                return true;
+
+            })
+        }
+    }
     editElement() {
         const editCardElement = document.getElementsByClassName('edit-card');
         for (let i = 0; i < editCardElement.length; i++) {
-            editCardElement[i].addEventListener('click', () =>  {
-                const cardTitle = event.target.closest('.card-body').querySelector('.card-title').textContent;
+            editCardElement[i].addEventListener('click', (event) =>  {
+                const cardElement = event.target.closest('.card');
+                const cardTitle = cardElement.querySelector('.card-title').textContent;
+                const cardId = cardElement.getAttribute('data-id');
                 sessionStorage.setItem('editCardTitle', cardTitle);
-                sessionStorage.setItem('editCardIndex', i);
+                sessionStorage.setItem('editCardId', cardId);
                 this.openNewRoute('/expenses-edit-card-element');
             });
         }

@@ -1,10 +1,10 @@
 import {HttpUtils} from "../utils/http-utils";
 
-export async function updateSidebarBalance() {
+export async function updateSidebarBalance(openNewRoute) {
 
     const result = await HttpUtils.request('/balance');
     if(result.redirect) {
-        return  this.openNewRoute(result.redirect);
+        return  openNewRoute(result.redirect);
     }
     if (result.error || !result.response || (result.response && result.response.error)) {
         return alert('Возникла ошибка при запросе баланса.');

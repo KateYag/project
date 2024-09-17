@@ -75,7 +75,7 @@ export class Router {
                 useLayout: '/templates/layout.html',
                 load: () => {
                     if (this.isAuthenticated()) {
-                    new IncomeExpenses();
+                    new IncomeExpenses(this.openNewRoute.bind(this));
                         updateSidebarBalance();
                     } else {
                         this.redirectToLogin();

@@ -12,35 +12,18 @@ export class EditCardElement {
         let cardTitle = sessionStorage.getItem('editCardTitle');
         const cardId = sessionStorage.getItem('editCardId');
         if (cardTitle && editInput) {
-            editInput.value = cardTitle; // Устанавливаем значение в инпут
+            editInput.value = cardTitle;
         }
 
-        // Используем обратные кавычки для шаблонной строки
-        document.querySelector('.btn-success.button').addEventListener('click', async () => {
-            const newCategoryName = document.querySelector('.input-create-card').value;
 
-            const result = await HttpUtils.request(`/income/${cardId}`, 'PUT', true,{
-                id: cardId,
-                title: newCategoryName
-            });
+        document.querySelector('.btn-success.button').addEventListener('click', async () => {
+            const newCategoryName = editInput.value;
+
+            const result = await HttpUtils.request(`/categories/income/${cardId}`, 'PUT', true, { id: cardId, title: newCategoryName });
             if (result.error) {
                 throw new Error('Ошибка при обновлении карточки.');
             }
-                // const response = await fetch(`http://localhost:3000/api/categories/income/${cardId}`, {
-                //     method: 'PUT',
-                //     headers: {
-                //         'Content-Type': 'application/json',
-                //     },
-                //     body: JSON.stringify({
-                //         title: newCategoryName,
-                //     }),
-                // });
-                //
-                // if (!response.ok) {
-                //     throw new Error('Ошибка при обновлении карточки.');
-                // }
 
-                // Возвращаемся на страницу доходов
                 this.openNewRoute('/income');
 
 

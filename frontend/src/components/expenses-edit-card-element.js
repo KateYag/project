@@ -1,3 +1,5 @@
+import {HttpUtils} from "../utils/http-utils";
+
 export class ExpensesEditCardElement {
     constructor(openNewRoute) {
         this.openNewRoute = openNewRoute;
@@ -8,25 +10,22 @@ export class ExpensesEditCardElement {
     updateCardTitle(){
 
         const editInput = document.querySelector('.input-create-card');
-        const cardTitle = sessionStorage.getItem('editCardTitle'); // Получаем сохраненное название
+        const cardTitle = sessionStorage.getItem('editCardTitle');
+        const cardId = sessionStorage.getItem('editCardId');
         if (cardTitle && editInput) {
-            editInput.value = cardTitle; // Устанавливаем значение в инпут
+            editInput.value = cardTitle;
         }
 
-        document.querySelector('.btn-success.button').addEventListener('click', () => {
+        document.querySelector('.btn-success.button').addEventListener('click', async () => {
             const newCategoryName = document.querySelector('.input-create-card').value;
-            const cardIndex = sessionStorage.getItem('editCardIndex'); // Получаем индекс карточки
 
-            // Возвращаемся на страницу доходов
+            const result = await HttpUtils.request(`/categories/expense/${cardId}`, 'PUT', true, { id: cardId, title: newCategoryName });
+            if (result.error) {
+                throw new Error('Ошибка при обновлении карточки.');
+            }
             this.openNewRoute('/expenses');
 
-            // После возврата обновляем карточку на странице
-            setTimeout(() => { // Даем немного времени для перехода
-                const cardToUpdate = document.querySelectorAll('.card .card-title')[cardIndex];
-                if (cardToUpdate) {
-                    cardToUpdate.textContent = newCategoryName;
-                }
-            }, 100); // Задержка для завершения перехода
+
         });
 
     }
