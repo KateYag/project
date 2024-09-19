@@ -1,7 +1,7 @@
 import {HttpUtils} from "../utils/http-utils";
 
 export async function updateSidebarBalance(openNewRoute) {
-
+    openNewRoute = openNewRoute;
     const result = await HttpUtils.request('/balance');
     if(result.redirect) {
         return  openNewRoute(result.redirect);

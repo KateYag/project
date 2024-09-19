@@ -263,6 +263,11 @@ position: fixed;
     color: #fff;
     border-color: #6c757d;
   }
+  .btn-secondary:focus {
+    background-color: #6c757d;
+    color: #fff;
+    border-color: #6c757d;
+  }
 }
 
 .login-box {
@@ -448,6 +453,10 @@ position: fixed;
 }
 .text-blue {
   color: #290661 !important;
+}
+
+.fa-trash {
+  margin-right: 10px;
 }
 
 

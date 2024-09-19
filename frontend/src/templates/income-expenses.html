@@ -17,9 +17,10 @@
                     <button class="btn btn-secondary me-2 mb-2">Месяц</button>
                     <button class="btn btn-secondary me-2 mb-2">Год</button>
                     <button class="btn btn-secondary me-2 mb-2">Все</button>
-                    <button class="btn btn-secondary me-2 mb-2">Интервал</button>
-                    <div class="date-interval">
-                        <b>с</b> <span class="date-one">Дата</span> <b>по</b> <span class="date-two">Дата</span>
+                    <button class="btn btn-secondary me-2 mb-2" id="interval-btn">Интервал</button>
+                    <div class="date-interval" id="date-interval">
+                        <b>с</b> <input type="date" class="date-one" placeholder="Дата">
+                        <b>по</b> <input type="date" class="date-two" placeholder="Дата">
                     </div>
                 </div>
             </div>
@@ -82,7 +83,7 @@
                 Вы действительно хотите удалить операцию?
             </div>
             <div class="delete-popup-button button mt-3">
-                <a href="javascript:void(0)" class="btn btn-success" >Да, удалить</a>
+                <a href="javascript:void(0)" class="btn btn-success" id="delete-card">Да, удалить</a>
                 <a href="javascript:void(0)" class="btn btn-danger" id="not-delete" >Не удалять</a>
             </div>
         </div>
