@@ -70,7 +70,7 @@ export class CreateCardElementExtended {
         // };
         // console.log('Data being sent:', data);
 
-console.log({type, amount, date, comment, category_id});
+        console.log({type, amount, date, comment, category_id});
         const result = await HttpUtils.request('/operations', 'POST', true, {type, amount, date, comment, category_id});
         console.log(result.response);
         if (result.error || !result.response || (result.response && result.response.error)) {
@@ -79,9 +79,9 @@ console.log({type, amount, date, comment, category_id});
 
 
         // Обновление таблицы
-
-        const incomeExpenses = new IncomeExpenses(this.openNewRoute);
-        await incomeExpenses.getOperations(incomeExpenses.currentPeriod);
+        this.openNewRoute('/income-expenses');
+        //  const incomeExpenses = new IncomeExpenses(this.openNewRoute);
+        //  await incomeExpenses.getOperations(incomeExpenses.currentPeriod);
 
 
     }
