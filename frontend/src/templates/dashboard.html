@@ -14,15 +14,16 @@
     </section>
 
     <div class="container mt-4">
-        <div class="d-flex flex-wrap align-items-baseline menu">
-            <button class="btn btn-secondary me-2 mb-2">Сегодня</button>
-            <button class="btn btn-secondary me-2 mb-2">Неделя</button>
-            <button class="btn btn-secondary me-2 mb-2">Месяц</button>
-            <button class="btn btn-secondary me-2 mb-2">Год</button>
-            <button class="btn btn-secondary me-2 mb-2">Все</button>
-            <button class="btn btn-secondary me-2 mb-2">Интервал</button>
+        <div class="d-flex flex-wrap align-items-baseline menu" id="filter-buttons">
+            <button class="btn btn-secondary me-2 mb-2" data-period="today">Сегодня</button>
+            <button class="btn btn-secondary me-2 mb-2" data-period="week">Неделя</button>
+            <button class="btn btn-secondary me-2 mb-2" data-period="month">Месяц</button>
+            <button class="btn btn-secondary me-2 mb-2" data-period="year">Год</button>
+            <button class="btn btn-secondary me-2 mb-2" data-period="all">Все</button>
+            <button class="btn btn-secondary me-2 mb-2" data-period="interval">Интервал</button>
             <div class="date-interval">
-                <b>с</b> <span class="date-one">Дата</span> <b>по</b> <span class="date-two">Дата</span>
+                <b>с</b> <input type="date" id="dateFrom" class="date-one" placeholder="Дата">
+                <b>по</b> <input type="date" class="date-two" id="dateTo" placeholder="Дата">
             </div>
         </div>
         <div class="chart row mb-8">

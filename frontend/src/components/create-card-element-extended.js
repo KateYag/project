@@ -59,16 +59,7 @@ export class CreateCardElementExtended {
             return alert('Выберите дату.');
         }
 
-        //
-        // const data = {
-        //     type,
-        //     amount,
-        //     date,
-        //     comment: comment || "",
-        //     category_id
-        //
-        // };
-        // console.log('Data being sent:', data);
+
 
         console.log({type, amount, date, comment, category_id});
         const result = await HttpUtils.request('/operations', 'POST', true, {type, amount, date, comment, category_id});
@@ -78,17 +69,15 @@ export class CreateCardElementExtended {
         }
 
 
-        // Обновление таблицы
         this.openNewRoute('/income-expenses');
-        //  const incomeExpenses = new IncomeExpenses(this.openNewRoute);
-        //  await incomeExpenses.getOperations(incomeExpenses.currentPeriod);
+
 
 
     }
 
     populateCategories(categories) {
         const categorySelect = document.getElementById('category-select');
-        categorySelect.innerHTML = ''; // Очищаем селектор
+        categorySelect.innerHTML = '';
 
         const defaultOption = document.createElement('option');
         defaultOption.value = '';
