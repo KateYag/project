@@ -59,9 +59,9 @@ export class EditCardElementExtended {
             categorySelect.appendChild(option);
         });
 
-        console.log('Selected Category:', selectedCategory);
+
         if (selectedCategory) {
-            categorySelect.value = selectedCategory;
+            categorySelect.value = parseInt(selectedCategory);
         }
     }
 
@@ -81,7 +81,7 @@ export class EditCardElementExtended {
 
             const updatedData = {
                 type: document.getElementById('type-select').value,
-                category_id:  document.getElementById('category-select').value,
+                category_id:  parseInt(document.getElementById('category-select').value),
                 amount: document.querySelector('input[placeholder="Сумма в $..."]').value,
                 date: document.querySelector('input[placeholder="Дата..."]').value,
                 comment: document.querySelector('input[placeholder="Комментарий..."]').value
