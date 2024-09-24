@@ -162,8 +162,8 @@ export class Dashboard {
     }
 
     updateCharts(data) {
-        const incomeData = data.filter(item => item.type === 'income');
-        const expenseData = data.filter(item => item.type === 'expense');
+        const incomeData = data.filter(item => item.type === 'income' && item.category);
+        const expenseData = data.filter(item => item.type === 'expense' && item.category);
         console.log('Income Data:', incomeData);
         console.log('Expense Data:', expenseData);
 

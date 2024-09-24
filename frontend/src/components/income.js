@@ -32,6 +32,7 @@ export class Income {
             const cardElement = document.createElement('div');
             cardElement.classList.add('card');
             cardElement.setAttribute('data-id', category.id);
+            cardElement.setAttribute('data-category-id', category.id);
             cardElement.setAttribute('id', `card-${category.id}`);
             //cardElement.id = `card-${category.id}`;
             cardElement.innerHTML = `
@@ -107,6 +108,9 @@ export class Income {
                 if (card) {
                     card.remove();
                 }
+
+                const operationRows = document.querySelectorAll(`#records tr[data-category-id="${id}"]`);
+                operationRows.forEach(row => row.remove());
                 document.getElementById('delete-popup').style.display = 'none';
                 document.getElementById('overlay').style.display = 'none';
 

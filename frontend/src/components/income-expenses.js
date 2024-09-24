@@ -33,8 +33,13 @@ export class IncomeExpenses {
         const recordsElement = document.getElementById('records');
         recordsElement.innerHTML = '';
         for (let i = 0; i < result.length; i++) {
+            if (!result[i].category) {
+                continue; // Пропускаем этот элемент, если категория пустая
+            }
+
             const trElement = document.createElement('tr');
             trElement.setAttribute('data-id', result[i].id);
+            trElement.setAttribute('data-category', result[i].category || '');
             trElement.setAttribute('id', `tr-${result[i].id}`);
             trElement.insertCell().innerText = i + 1;
             let typeHtml = null;
@@ -159,6 +164,8 @@ export class IncomeExpenses {
                 if (trElement) {
                     trElement.remove();
                 }
+
+
                 document.getElementById('delete-popup').style.display = 'none';
                 document.getElementById('overlay').style.display = 'none';
 

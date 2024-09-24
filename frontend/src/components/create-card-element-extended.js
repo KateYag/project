@@ -5,25 +5,37 @@ export class CreateCardElementExtended {
     constructor(openNewRoute) {
         this.openNewRoute = openNewRoute;
         this.setupEventListeners();
+        this.setDefaultTypeFromUrl();
     }
 
     setupEventListeners() {
 
-        document.getElementById('type-select').addEventListener('change', async (event) => {
-            const selectedType = event.target.value;
-            if (selectedType) {
-                const url = `/categories/${selectedType}`;
-                try {
-                    const result = await HttpUtils.request(url);
-                    if (result.error || !result.response || (result.response && result.response.error)) {
-                        return alert('Ошибка при получении категорий.');
-                    }
-                    this.populateCategories(result.response); // для заполнения селектора категорий
-                } catch (error) {
-                    console.error('Ошибка запроса категорий:', error);
-                }
-            }
-        });
+        // document.getElementById('type-select').addEventListener('change', async (event) => {
+        //     const selectedType = event.target.value;
+        //     if (selectedType) {
+        //         const url = `/categories/${selectedType}`;
+        //        await this.loadCategories(url);
+        //     }
+        // });
+        // document.querySelectorAll('.btn-success, .btn-danger').forEach(button => {
+        //     button.addEventListener('click', (event) => {
+        //         event.preventDefault();
+        //         const selectedType = button.getAttribute('data-type');
+        //         this.setDefaultType(selectedType);
+        //     });
+        // });
+
+        // document.querySelector('.btn-success').addEventListener('click', (event) => {
+        //     event.preventDefault();
+        //     this.setDefaultType('income');
+        //
+        // });
+        //
+        // document.querySelector('.btn-danger').addEventListener('click', (event) => {
+        //     event.preventDefault();
+        //     this.setDefaultType('expense');
+        //
+        // });
 
         // Обработчик для кнопки создания
         document.getElementById('create-button').addEventListener('click', () => {
@@ -36,6 +48,39 @@ export class CreateCardElementExtended {
         });
     }
 
+    setDefaultTypeFromUrl() {
+        const params = new URLSearchParams(window.location.search);
+        const type = params.get('type');
+        if (type) {
+            this.setDefaultType(type);
+        }
+    }
+
+
+    async setDefaultType(type) {
+        const typeSelect = document.getElementById('type-select');
+        if (typeSelect) {
+            typeSelect.value = type;
+        }
+        if (!type) {
+            console.warn("Тип операции не определен.");
+            return;
+        }
+        const url = `/categories/${type}`;
+        await this.loadCategories(url);
+    }
+
+    async loadCategories(url) {
+        try {
+            const result = await HttpUtils.request(url);
+            if (result.error || !result.response || (result.response && result.response.error)) {
+                return alert('Ошибка при получении категорий.');
+            }
+            this.populateCategories(result.response);
+        } catch (error) {
+            console.error('Ошибка запроса категорий:', error);
+        }
+    }
     async createTransaction() {
         const type = document.getElementById('type-select').value;
         const categorySelect = document.getElementById('category-select');
